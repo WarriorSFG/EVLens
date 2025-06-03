@@ -1,0 +1,31 @@
+.Header{
+    display: flex;
+    width: 100%;
+    text-align: left;
+}
+
+.Header .directory{
+    padding: 1em;
+    color: #B5B5B5;
+    font-size: 0.75em;
+    font-family: "Martian Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.Header .directory .current{
+    color: #B5B5B5;
+    font-size: 3em;
+    font-family: "Martian Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.Header .profile{
+    padding: 1em;
+    width: 100%;
+    color: #B5B5B5;
+    text-align: right;
+}

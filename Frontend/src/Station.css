@@ -1,0 +1,247 @@
+.main {
+  display: flex;
+  height: 100vh;
+}
+
+.main .content {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100vh;
+  flex-direction: column;
+}
+
+.main .content .stationview {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+
+.main .content .stationview .map {
+  width: 96%;
+  background-color: #141414;
+  height: 50%;
+  margin-left: 1em;
+  margin-right: 1em;
+  padding-top: 1em;
+  
+  color: #B5B5B5;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  border: 1px solid #141414;
+  border-radius: 2em;
+}
+
+.leftpanel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.leftpanel .viewer {
+  text-align: left;
+  height: 40%;
+  background-color: #141414;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 1em;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 2em;
+  color: #B5B5B5;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  font-style: normal;
+  border: 1px solid #141414;
+  border-radius: 2em;
+}
+
+.leftpanel .viewer .input-field{
+  text-align: left;
+  height: 60%;
+  background-color: #141414;
+  margin-left: 1em;
+  color: #B5B5B5;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  font-style: normal;
+  border: 1px solid #141414;
+  border-radius: 2em;
+}
+
+.form-columns {
+  display: flex;
+  gap: 1em;
+  flex-wrap: nowrap; 
+}
+
+.form-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; 
+}
+
+
+.form-column label{
+  color: #33DA9B;
+}
+
+
+.main .content .stationview .edit {
+  width: 40%;
+  height: 96%;
+  background-color: #141414;
+  margin-right: 1em;
+  padding-top: 1em;
+  color: #B5B5B5;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-size: 0.8em;
+  font-style: normal;
+  border: 1px solid #141414;  
+  border-radius: 2em;
+}
+
+.main .content .stationview .edit .img {
+  color: #33DA9B;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1em;
+  padding-bottom: 3em;
+}
+
+@keyframes pulse-glow {
+  0% {
+    filter: drop-shadow(0 0 5px #33DA9B);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 10px #33DA9B);
+  }
+
+  100% {
+    filter: drop-shadow(0 0 5px #33DA9B);
+  }
+}
+
+.img:hover {
+  animation: pulse-glow 2s infinite;
+}
+
+
+.input-field {
+  text-align: center;
+  padding-left: 1em;
+  width: 60%;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-top: 0.5em;
+  color: #B5B5B5;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-size: 1.25em;
+  font-style: normal;
+}
+
+.hr {
+  justify-content: center;
+  margin: auto;
+  width: 80%;
+
+}
+
+.submitbutton {
+  margin-top: 1em;
+  padding: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
+  outline: none;
+  border-radius: 1em;
+  background-color: #33DA9B;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.submitbutton:hover {
+  animation: pulse-glow 2s infinite;
+}
+
+.station-table tr.clickable-row:hover {
+  background-color: #33DA9B33;
+  color: #fff;
+}
+
+
+.station-table {
+  width: 95%;
+  margin: 1em;
+  border-collapse: collapse;
+  font-family: "Martian Mono", monospace;
+  color: #B5B5B5;
+}
+
+.station-table th,
+.station-table td {
+  border: 1px solid #333;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.station-table th {
+  background-color: #1a1a1a;
+}
+
+.station-table tr:nth-child(even) {
+  background-color: #1e1e1e;
+}
+
+.mapheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+
+.button {
+  outline: none;
+  background-color: #33DA9B;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.table-wrapper {
+  max-height: 250px; 
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 1em;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #33DA9B;
+  border-radius: 4px;
+}

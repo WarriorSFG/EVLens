@@ -1,0 +1,132 @@
+.main {
+  display: flex;
+  height: 100vh;
+}
+
+.input-field {
+  width: 50%;
+  box-sizing: border-box;
+}
+.img {
+  width: 50%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form{
+  width: 50%;
+  text-align: center;
+}
+
+.h1{
+  margin-top: 5em;
+  margin-bottom: 1em;
+  color:#33DA9B;
+  font-size: 2em;
+}
+
+@keyframes pulse-glow {
+  0% {
+    filter: drop-shadow(0 0 5px #33DA9B);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 10px #33DA9B);
+  }
+
+  100% {
+    filter: drop-shadow(0 0 5px #33DA9B);
+  }
+}
+
+.img:hover {
+  animation: pulse-glow 2s infinite;
+}
+
+
+.input-field {
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-top: 0.5em;
+  color: #B5B5B5;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-size: 1.25em;
+  font-style: normal;
+}
+
+.hr {
+  margin-bottom: 2em;
+  justify-content: center;
+  width: 50%;
+}
+
+.submit {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
+  outline: none;
+  border-radius: 1em;
+  background-color: #33DA9B;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.submit:hover {
+  animation: pulse-glow 2s infinite;
+}
+
+.a{
+  color:#B5B5B5;
+}
+
+.a::selection{
+    color: #33DA9B;
+}
+
+.a:hover {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
+  transition: 0.2s ease;
+}
+
+.background{
+  width: 100%
+}
+
+.p{
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  background: transparent;
+  margin-top: 0.5em;
+  color: #B5B5B5;
+  text-decoration: none;
+  font-family: "Martian Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-size: 1.25em;
+  font-style: normal;
+}
+
+.p::selection{
+  color: #33DA9B;
+}
