@@ -3,6 +3,7 @@ import Header from './Header'
 import Navbar from './Navbar'
 import './Station.css'
 import { LucideFuel, RefreshCwIcon, List } from 'lucide-react';
+import BackendURL from "./URL";
 
 function Stations() {
     const [stations, setStations] = useState([]);
@@ -18,7 +19,7 @@ function Stations() {
 
     const FetchStations = async () => {
         try {
-            const res = await fetch('/api/GetStations', {
+            const res = await fetch(`${BackendURL}/api/GetStations`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -45,7 +46,7 @@ function Stations() {
     const handleDelete = async (Name, e) => {
         e.preventDefault();
         try {
-            const res = await fetch('/api/DeleteStation', {
+            const res = await fetch(`${BackendURL}/api/DeleteStation`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem('token')}` },
                 body: JSON.stringify({ Name }),
@@ -84,7 +85,7 @@ function Stations() {
         };
 
         try {
-            const res = await fetch('/api/UpdateStation', {
+            const res = await fetch(`${BackendURL}/api/UpdateStation`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem('token')}` },
                 body: JSON.stringify(updatedStation),
@@ -128,7 +129,7 @@ function Stations() {
         }
 
         try {
-            const res = await fetch('/api/AddStation', {
+            const res = await fetch(`${BackendURL}/api/AddStation`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem('token')}` },
                 body: JSON.stringify({

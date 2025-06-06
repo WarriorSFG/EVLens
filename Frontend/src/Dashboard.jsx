@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Header from './Header';
 import './Dashboard.css';
 import { Cable, SquareActivityIcon, ZapIcon } from 'lucide-react';
+import BackendURL from './URL';
 
 function Dashboard() {
   const [stations, setStations] = useState([]);
@@ -15,7 +16,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const res = await fetch('/api/GetStations', {
+        const res = await fetch(`${BackendURL}/api/GetStations`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -30,7 +31,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchActivity = async () => {
       try {
-        const res = await fetch('/api/GetActivity', {
+        const res = await fetch(`${BackendURL}/api/GetActivity`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

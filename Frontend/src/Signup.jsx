@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import BackendURL from './URL';
 
 function Signup() {
     const [message, setMessage] = useState('');
@@ -13,7 +14,7 @@ function Signup() {
         const password = form.password.value;
 
         try {
-            const res = await fetch('/api/signup', {
+            const res = await fetch(`${BackendURL}/api/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, password }),

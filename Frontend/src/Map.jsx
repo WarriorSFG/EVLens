@@ -3,6 +3,7 @@ import Header from './Header';
 import Navbar from './Navbar';
 import './Map.css';
 import leaflet from 'leaflet';
+import BackendURL from "./URL";
 
 function Map() {
     const mapRef = useRef(null);
@@ -80,7 +81,7 @@ function Map() {
 
     const FetchStations = async () => {
         try {
-            const res = await fetch('/api/GetStations', {
+            const res = await fetch(`${BackendURL}/api/GetStations`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
