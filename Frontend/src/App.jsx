@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css'
 import Dashboard from './Dashboard';
 import Stations from './Stations';
-import Login from './Login';
 import Signup from './Signup';
+import Login from './login';
 import Map from './Map';
 
 function App() {

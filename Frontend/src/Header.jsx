@@ -1,9 +1,9 @@
 import './Header.css';
 import { jwtDecode } from 'jwt-decode';
+import { LogOut } from 'lucide-react';
 
 function Header() {
     const currentPath = window.location.pathname;
-
     let username = null;
 
     try {
@@ -16,6 +16,11 @@ function Header() {
         console.error(`${error} : Invalid token`);
     }
 
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.href = '/'; 
+    };
+
     return (
         <div className='Header'>
             <div className='directory'>
@@ -23,6 +28,10 @@ function Header() {
             </div>
             <div className='profile'>
                 {username ? `Logged in as ${username}` : 'NOT LOGGED IN'}
+                <button onClick={handleLogout} className='button'>
+                    <LogOut style={{ marginRight: '6px' }} />Logout
+                </button>
+
             </div>
         </div>
     );

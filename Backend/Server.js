@@ -39,7 +39,7 @@ db.on('error', (err) => {
     console.error('MongoDB connection error:', err);
 })
 
-// User Schema - removed token field since it's not needed to store token in DB
+// User Schema
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -73,9 +73,9 @@ function verifyToken(req, res, next) {
 app.post('/api/signup', async (req, res) => {
     try {
         const existingUser = await User.findOne({ name: req.body.name })
-        if (existingUser) {
-            return res.status(400).send('Username not available')
-        }
+if (existingUser) {
+    return res.status(400).json({ error: 'Username not available' });
+}
 
         const hashedPassword = await hashPassword(req.body.password)
         const token = jwt.sign({ name: req.body.name }, process.env.KEY)
@@ -85,11 +85,11 @@ app.post('/api/signup', async (req, res) => {
             password: hashedPassword,
         }
         await User.create(data);
-        res.send('Successfully created account.')
+        res.status(201).json({ message: 'Successfully created account.' });
     }
     catch (err) {
         console.error("Signup error:", err);
-        res.status(500).send('Server side error.');
+        res.status(500).json({message: `${err} :Server side error.`});
     }
 })
 
@@ -98,14 +98,8 @@ app.post('/api/login', async (req, res) => {
     try {
         const existingUser = await User.findOne({ name: req.body.name });
 
-        if (!existingUser) {
-            return res.status(401).send('Incorrect Username or Password');
-        }
-
-        const passCheck = await compare(req.body.password, existingUser.password);
-
-        if (!passCheck) {
-            return res.status(401).send('Incorrect Username or Password');
+        if (!existingUser || !(await compare(req.body.password, existingUser.password))) {
+           return res.status(401).json({ error: 'Incorrect Username or Password' });
         }
 
         const token = jwt.sign({ name: existingUser.name }, process.env.KEY);
@@ -124,6 +118,21 @@ async function compare(userPass, hashPass) {
     return await bcryptjs.compare(userPass, hashPass)
 }
 
+const ActivitySchema = new mongoose.Schema({
+    user: String,
+    action: String, //"Added", "Updated", "Deleted"
+    stationName: String,
+    timestamp: {
+        type: Date,
+        default: Date.now
+    }
+});
+
+const Activity = mongoose.model("Activity", ActivitySchema);
+
+
+
+
 // Station Schema
 const StationSchema = new mongoose.Schema({
     Name: String,
@@ -137,7 +146,7 @@ const StationSchema = new mongoose.Schema({
 
 const Station = mongoose.model("Station", StationSchema);
 
-// Add Station route - requires token, assigns AddedBy
+// Add Station route
 app.post('/api/AddStation', verifyToken, async (req, res) => {
     const { Name, Latitude, Longitude, Status, PowerOutput, ConnectorType } = req.body;
     if (!Name || !Latitude || !Longitude || !Status || !PowerOutput || !ConnectorType) {
@@ -161,13 +170,19 @@ app.post('/api/AddStation', verifyToken, async (req, res) => {
         });
 
         await newStation.save();
+        await Activity.create({
+            user: req.user.name,
+            action: 'Added',
+            stationName: Name
+        });
+
         res.json({ Data: "Successfully Added" });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
-// Delete Station - requires token, checks ownership
+// Delete Station
 app.post('/api/DeleteStation', verifyToken, async (req, res) => {
     const { Name } = req.body;
 
@@ -180,6 +195,11 @@ app.post('/api/DeleteStation', verifyToken, async (req, res) => {
 
         if (existingName) {
             await existingName.deleteOne();
+        await Activity.create({
+            user: req.user.name,
+            action: 'Deleted',
+            stationName: Name
+        });
             return res.json({ Data: 'Successfully Deleted the Station' });
         } else {
             return res.status(404).json({ error: `No record found with the name ${Name} for this user` });
@@ -189,7 +209,7 @@ app.post('/api/DeleteStation', verifyToken, async (req, res) => {
     }
 });
 
-// Get stations for logged in user
+// Get stations
 app.get('/api/GetStations', verifyToken, async (req, res) => {
     try {
         const stations = await Station.find({ AddedBy: req.user.name });
@@ -199,7 +219,8 @@ app.get('/api/GetStations', verifyToken, async (req, res) => {
     }
 });
 
-// Update station - requires token, ownership
+
+// Update station
 app.post('/api/UpdateStation', verifyToken, async (req, res) => {
     const { Name, Latitude, Longitude, Status, PowerOutput, ConnectorType } = req.body;
 
@@ -218,6 +239,12 @@ app.post('/api/UpdateStation', verifyToken, async (req, res) => {
             existingStation.ConnectorType = ConnectorType;
 
             await existingStation.save();
+            
+        await Activity.create({
+            user: req.user.name,
+            action: 'Updated',
+            stationName: Name
+        });
             return res.json({ Data: "Successfully Updated" });
         } else {
             return res.status(404).json({ error: "Station not found." });
@@ -226,6 +253,16 @@ app.post('/api/UpdateStation', verifyToken, async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
+
+app.get('/api/GetActivity', verifyToken, async (req, res) => {
+  try {
+    const activity = await Activity.find({ user: req.user.name }).sort({ timestamp: -1 }).limit(10);
+    res.json(activity);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 app.listen(port, () => {
     console.log(`server started, listening to port ${port}`)
