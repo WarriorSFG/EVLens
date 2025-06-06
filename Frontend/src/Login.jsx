@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import BackendURL from './URL';
 function Login() {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
@@ -10,9 +11,9 @@ function Login() {
         const form = e.target;
         const name = form.name.value;
         const password = form.password.value;
-
+        console.log("Posting to:", `${BackendURL}/api/login`);
         try {
-            const res = await fetch('/api/login', {
+            const res = await fetch(`${BackendURL}/api/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, password }),

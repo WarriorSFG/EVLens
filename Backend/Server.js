@@ -26,14 +26,6 @@ app.set('view engine', 'hbs')
 app.set('views', templatePath)
 app.use(express.static(publicPath))
 
-// Routes for rendering pages
-app.get('/api/login', (req, res) => {
-    res.render('login')
-})
-
-app.get('/api/signup', (req, res) => {
-    res.render('signup')
-})
 
 // Connect to MongoDB
 mongoose.connect(URL)
@@ -101,6 +93,7 @@ if (existingUser) {
 
 // Login route
 app.post('/api/login', async (req, res) => {
+    console.log("Recived login request")
     try {
         const existingUser = await User.findOne({ name: req.body.name });
 
