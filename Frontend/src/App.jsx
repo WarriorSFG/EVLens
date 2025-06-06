@@ -3,7 +3,6 @@ import './App.css'
 import Dashboard from './Dashboard';
 import Stations from './Stations';
 import Signup from './Signup';
-import Login from './login';
 import Map from './Map';
 
 function App() {
