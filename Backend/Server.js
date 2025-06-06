@@ -15,7 +15,8 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(cors({
-  origin: 'https://evlens.vercel.app/'
+  origin: 'https://evlens.vercel.app',
+  credentials: true,
 }));
 
 const templatePath = path.join(__dirname, "/templates")
