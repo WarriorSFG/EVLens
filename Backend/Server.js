@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 const bcryptjs = require('bcryptjs')
 require('dotenv').config()
+const cors = require('cors')
 
 const port = process.env.PORT
 const URL = process.env.MONGOURL
@@ -12,6 +13,10 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(cors({
+  origin: 'https://evlens.vercel.app/'
+}));
 
 const templatePath = path.join(__dirname, "/templates")
 const publicPath = path.join(__dirname, "/public")
